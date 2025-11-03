@@ -126,35 +126,37 @@ useEffect(() => {
 
 return (
     <div>
-        <h2>Strudel Demo</h2>
-        <main>
+        <div className="app-container">
+            <h2 className="header-title" >Strudel Demo</h2>
+            <main>
 
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <TextArea defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                            <TextArea defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
+                        </div>
+                        <div className="col-md-4">
+
+                            <nav>
+                                <ProcButtons />
+                                <br />
+                                <PlayButtons onPlay={handlePlay} onStop={handleStop} />
+                            </nav>
+                        </div>
                     </div>
-                    <div className="col-md-4">
-
-                        <nav>
-                            <ProcButtons />
-                            <br />
-                            <PlayButtons onPlay={handlePlay} onStop={handleStop}  />
-                        </nav>
+                    <div className="row">
+                        <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                            <div id="editor" />
+                            <div id="output" />
+                        </div>
+                        <div className="col-md-4">
+                            <DJcontrols />
+                        </div>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <div id="editor" />
-                        <div id="output" />
-                    </div>
-                    <div className="col-md-4">
-                        <DJcontrols />
-                    </div>
-                </div>
-            </div>
-            <canvas id="roll"></canvas>
-        </main >
+                <canvas id="roll"></canvas>
+            </main >
+        </div>
     </div >
 );
 
