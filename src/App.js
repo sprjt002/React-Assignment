@@ -108,7 +108,7 @@ useEffect(() => {
 
 return (
     <div>
-        <h2>Strudel Demo</h2>
+        <h2 className="header-title">Strudel Demo</h2>
         <main>
 
             <div className="container-fluid">
