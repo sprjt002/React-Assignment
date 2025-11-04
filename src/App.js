@@ -82,6 +82,19 @@ export default function StrudelDemo() {
 
     const [songText, setSongText] = useState(stranger_tune)
 
+    const handleProc = () => {
+        if (globalEditor) {
+            const procText = songText;
+            const processedText = procText.replaceAll('<p1_Radio>', '');
+            globalEditor.setCode(processedText);
+        }
+    };
+
+    const handleProcPlay = () => {
+        handleProc();
+        handlePlay();
+    }
+
 useEffect(() => {
 
     if (!hasRun.current) {
@@ -138,7 +151,7 @@ return (
                         <div className="col-md-4">
 
                             <nav>
-                                <ProcButtons />
+                                <ProcButtons onProc={handleProc} onProcPlay={handleProcPlay} />
                                 <br />
                                 <PlayButtons onPlay={handlePlay} onStop={handleStop} />
                             </nav>
