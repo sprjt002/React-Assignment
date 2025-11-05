@@ -24,51 +24,6 @@ const handleD3Data = (event) => {
     console.log(event.detail);
 };
 
-//export function SetupButtons() {
-
-//    document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
-//    document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-//    document.getElementById('process').addEventListener('click', () => {
-//        Proc()
-//    }
-//    )
-//    document.getElementById('process_play').addEventListener('click', () => {
-//        if (globalEditor != null) {
-//            Proc()
-//            globalEditor.evaluate()
-//        }
-//    }
-//    )
-//}
-
-
-
-//export function ProcAndPlay() {
-//    if (globalEditor != null && globalEditor.repl.state.started == true) {
-//        console.log(globalEditor)
-//        Proc()
-//        globalEditor.evaluate();
-//    }
-//}
-
-//export function Proc() {
-
-//    let proc_text = document.getElementById('proc').value
-//    let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
-//    ProcessText(proc_text);
-//    globalEditor.setCode(proc_text_replaced)
-//}
-
-//export function ProcessText(match, ...args) {
-
-//    let replace = ""
-//    //if (document.getElementById('flexRadioDefault2').checked) {
-//    //    replace = "_"
-//    //}
-
-//    return replace
-//}
-
 export default function StrudelDemo() {
 
     const hasRun = useRef(false);
@@ -87,6 +42,8 @@ export default function StrudelDemo() {
 
     const [volume, setVolume] = useState(1);
 
+    const [cpm, setCpm] = useState(120);
+
     const [state, setState] = useState("stop");
 
     useEffect(() => {
@@ -95,26 +52,32 @@ export default function StrudelDemo() {
         }
     }, [volume])
 
-    //function saveJson() {
-    //    let projectData = {
-    //        cpm: cpm,
-    //        volume: volume,
-    //        strudelCode = strudelCode
-    //    }
+    const saveJson = () => {
+        const projectData = {
+            cpm,
+            volume,
+            strudelCode: procText,
+        };
+        const jsonString = JSON.stringify(projectData, null, 2);
+        localStorage.setItem("projectData", jsonString);
+        alert("Project saved");
+    };
 
-    //    JSONString = JSON.stringify(projectData);
-    //    localStorage.setItem('projectData', JSONString);
-    //}
+    const loadJson = () => {
+        const jsonString = localStorage.getItem("projectData");
+        if (jsonString) {
+            const data = JSON.parse(jsonString);
+            console.log("Loaded data:", data);
 
-    //function loadJson() {
-    //    const JSONString = localStorage.getItem('projectData');
-    //    if (JSONString) {
-    //        const data = JSON.parse(JSONString);
-    //        setCpm(data.cpm);
-    //        // the rest
-    //    }
-        
-    //}
+            if (data.cpm !== undefined) setCpm(data.cpm);
+            if (data.volume !== undefined) setVolume(Number(data.volume));
+            if (data.strudelCode !== undefined) setProcText(data.strudelCode);
+
+            alert("Project loaded");
+        } else {
+            alert("Project not found");
+        }
+    };
 
 useEffect(() => {
 
@@ -161,9 +124,12 @@ useEffect(() => {
 return (
     <div>
         <div className="app-container">
+            <br />
             <h2 className="header-title" >Strudel Demo</h2>
-            <button class="btn btn-primary">Save JSON</button>
-            <button class="btn btn-primary">Load JSON</button>
+            <div className="d-flex justify-content-center gap-3 mt-3">
+                <button className="btn btn-primary" onClick={saveJson}>Save JSON</button>
+                <button className="btn btn-primary" onClick={loadJson}>Load JSON</button>
+            </div>
             <main>
 
                 <div className="container-fluid">
@@ -173,7 +139,6 @@ return (
                             <br />
                         </div>
                         <div className="col-md-4">
-
                             <nav>
                                 <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} />
                             </nav>
@@ -184,7 +149,7 @@ return (
                             <Editor />
                         </div>
                         <div className="col-md-4">
-                            <DJcontrols volumChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} />
+                            <DJcontrols volumeChange={volume} onVolumeChange={(e) => setVolume(Number(e.target.value))} />
                         </div>
                     </div>
                 </div>

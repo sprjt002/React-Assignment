@@ -1,7 +1,7 @@
 function Editor() {
     return (
         <>
-            <div className="box">
+            <div className="editor-box">
                 <div id="editor" />
                 <br />
                 <div id="output" />
