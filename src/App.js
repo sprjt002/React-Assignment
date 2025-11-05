@@ -135,7 +135,7 @@ return (
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-8" >
-                            <TextArea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
+                            <TextArea value={procText} onChange={(e) => setProcText(e.target.value)} />
                             <br />
                         </div>
                         <div className="col-md-4">
