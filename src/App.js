@@ -14,7 +14,7 @@ import PlayButtons from './components/PlayButtons';
 import TextArea from './components/TextArea';
 import Editor from './components/Editor'
 import { Preprocess } from './utils/Preprocess';
-
+import Swal from "sweetalert2";
 
 
 
@@ -58,24 +58,44 @@ export default function StrudelDemo() {
             volume,
             strudelCode: procText,
         };
+        // converting to JSON file
         const jsonString = JSON.stringify(projectData, null, 2);
+        // saving to local storage
         localStorage.setItem("projectData", jsonString);
-        alert("Project saved");
+        //alert
+        Swal.fire({
+            title: "Saved",
+            text: "preset saved",
+            icon: "success"
+        })
     };
 
     const loadJson = () => {
+        // getting local stored data
         const jsonString = localStorage.getItem("projectData");
         if (jsonString) {
+            // converting from JSON file
             const data = JSON.parse(jsonString);
+            // printing to console for tests
             console.log("Loaded data:", data);
 
+            // checking datais there
             if (data.cpm !== undefined) setCpm(data.cpm);
             if (data.volume !== undefined) setVolume(Number(data.volume));
             if (data.strudelCode !== undefined) setProcText(data.strudelCode);
 
-            alert("Project loaded");
+            //alert
+            Swal.fire({
+                title: "Successful",
+                text: "preset loaded",
+                icon: "success"
+            })
         } else {
-            alert("Project not found");
+            Swal.fire({
+                title: "Error",
+                text: "no preset found",
+                icon: "error"
+            })
         }
     };
 
