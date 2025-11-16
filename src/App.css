@@ -9,7 +9,7 @@
     background-color: #464646;
     border: 2px solid #444;
     border-radius: 20px;
-    padding: 165px;
+    padding: 83px;
     margin-top: 20px;
     width: 100%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -20,15 +20,6 @@
     margin-bottom: 15px;
     font-family: 'Trebuchet MS', Arial, sans-serif;
     color: #E28D54;
-}
-
-.dj-controls-box {
-    background-color: #464646;
-    border: 2px solid #444;
-    border-radius: 20px;
-    padding: 115px;
-    width: 100%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .text-area-box {

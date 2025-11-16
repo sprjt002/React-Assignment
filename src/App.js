@@ -9,7 +9,6 @@ import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/w
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune, algorave_dave_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
-import DJcontrols from './components/DJcontrols';
 import PlayButtons from './components/PlayButtons';
 import TextArea from './components/TextArea';
 import Editor from './components/Editor'
@@ -99,13 +98,13 @@ export default function StrudelDemo() {
         }
     };
 
-useEffect(() => {
+    useEffect(() => {
 
-    if (!hasRun.current) {
-        document.addEventListener("d3Data", handleD3Data);
-        console_monkey_patch();
-        hasRun.current = true;
-        //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
+        if (!hasRun.current) {
+            document.addEventListener("d3Data", handleD3Data);
+            console_monkey_patch();
+            hasRun.current = true;
+            //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
             //init canvas
             const canvas = document.getElementById('roll');
             canvas.width = canvas.width * 2;
@@ -131,53 +130,48 @@ useEffect(() => {
                     await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
                 },
             });
-            
-        document.getElementById('proc').value = algorave_dave_tune
-        //SetupButtons()
-        //Proc()
-    }
-    globalEditor.setCode(procText);
 
-}, [procText]);
+            document.getElementById('proc').value = algorave_dave_tune
+            //SetupButtons()
+            //Proc()
+        }
+        globalEditor.setCode(procText);
+
+    }, [procText]);
 
 
-return (
-    <div>
-        <div className="app-container">
-            <br />
-            <h2 className="header-title" >Strudel Demo</h2>
-            <div className="d-flex justify-content-center gap-3 mt-3">
-                <button className="btn btn-primary" onClick={saveJson}>Save JSON</button>
-                <button className="btn btn-primary" onClick={loadJson}>Load JSON</button>
-            </div>
-            <main>
-
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-8" >
-                            <TextArea value={procText} onChange={(e) => setProcText(e.target.value)} />
-                            <br />
-                        </div>
-                        <div className="col-md-4">
-                            <nav>
-                                <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} />
-                            </nav>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: '' }}>
-                            <Editor />
-                        </div>
-                        <div className="col-md-4">
-                            <DJcontrols volumeChange={volume} onVolumeChange={(e) => setVolume(Number(e.target.value))} />
-                        </div>
-                    </div>
+    return (
+        <div>
+            <div className="app-container">
+                <br />
+                <h2 className="header-title" >Strudel Demo</h2>
+                <div className="d-flex justify-content-center gap-3 mt-3">
+                    <button className="btn btn-primary" onClick={saveJson}>Save JSON</button>
+                    <button className="btn btn-primary" onClick={loadJson}>Load JSON</button>
                 </div>
-                <canvas id="roll"></canvas>
-            </main >
-        </div>
-    </div >
-);
+                <main>
 
-
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-md-8" >
+                                <TextArea value={procText} onChange={(e) => setProcText(e.target.value)} />
+                                <br />
+                            </div>
+                            <div className="col-md-4">
+                                <nav>
+                                    <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} volumeChange={volume} onVolumeChange={(e) => setVolume(Number(e.target.value))} />
+                                </nav>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: '' }}>
+                                <Editor />
+                            </div>
+                        </div>
+                    </div>
+                    <canvas id="roll"></canvas>
+                </main >
+            </div>
+        </div >
+    );
 }
