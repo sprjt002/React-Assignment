@@ -50,6 +50,7 @@ note(pick(basslines, bass))
 .room(0.4)
 .postgain(pick(gain_patterns, pattern))
 .gain(1 * {$S1})
+.log()
 
 
 main_arp: 

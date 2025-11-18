@@ -14,13 +14,14 @@ import TextArea from './components/TextArea';
 import Editor from './components/Editor'
 import { Preprocess } from './utils/Preprocess';
 import Swal from "sweetalert2";
+import D3Graph from './components/D3Graph';
 
 
 
 let globalEditor = null;
 
 const handleD3Data = (event) => {
-    console.log(event.detail);
+    //console.log(event.detail);
 };
 
 export default function StrudelDemo() {
@@ -117,20 +118,11 @@ export default function StrudelDemo() {
             document.addEventListener("d3Data", handleD3Data);
             console_monkey_patch();
             hasRun.current = true;
-            //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
-            //init canvas
-            const canvas = document.getElementById('roll');
-            canvas.width = canvas.width * 2;
-            canvas.height = canvas.height * 2;
-            const drawContext = canvas.getContext('2d');
-            const drawTime = [-2, 2]; // time window of drawn haps
             globalEditor = new StrudelMirror({
                 defaultOutput: webaudioOutput,
                 getTime: () => getAudioContext().currentTime,
                 transpiler,
                 root: document.getElementById('editor'),
-                drawTime,
-                onDraw: (haps, time) => drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 }),
                 prebake: async () => {
                     initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)
                     const loadModules = evalScope(
@@ -148,9 +140,8 @@ export default function StrudelDemo() {
             //SetupButtons()
             //Proc()
         }
-        globalEditor.setCode(procText);
 
-    }, [procText]);
+    });
 
 
     return (
@@ -177,12 +168,16 @@ export default function StrudelDemo() {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: '' }}>
+                            <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                                 <Editor />
                             </div>
+
+                            <div className="col-md-4" style={{ marginTop: "-30px" }}>
+                                <D3Graph />
+                            </div>
                         </div>
+
                     </div>
-                    <canvas id="roll"></canvas>
                 </main >
             </div>
         </div >
