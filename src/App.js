@@ -28,7 +28,7 @@ export default function StrudelDemo() {
     const hasRun = useRef(false);
 
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: procText, volume: volume });
+        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
@@ -49,7 +49,7 @@ export default function StrudelDemo() {
         if (state === "play") {
             handlePlay();
         }
-    }, [volume])
+    }, [volume, cpm])
 
     const saveJson = () => {
         const projectData = {
@@ -159,7 +159,7 @@ export default function StrudelDemo() {
                             </div>
                             <div className="col-md-4">
                                 <nav>
-                                    <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} volumeChange={volume} onVolumeChange={(e) => setVolume(Number(e.target.value))} />
+                                    <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} volumeChange={volume} onVolumeChange={(e) => setVolume(Number(e.target.value))} cpmValue={cpm} onCpmChange={(e) => setCpm(Number(e.target.value))} />
                                 </nav>
                             </div>
                         </div>

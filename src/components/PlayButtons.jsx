@@ -1,4 +1,4 @@
-function PlayButtons({ onPlay, onStop, volumeChange, onVolumeChange }) {
+function PlayButtons({ onPlay, onStop, volumeChange, onVolumeChange, cpmValue, onCpmChange }) {
     return (
         <div className="play-buttons-box">
             <h4 className="text-center">Playback Controls</h4>
@@ -22,11 +22,15 @@ function PlayButtons({ onPlay, onStop, volumeChange, onVolumeChange }) {
                 <div className="input-group mb-3">
                     <span className="input-group-text" id="inputGroup-sizing-default">setCPM</span>
                     <input
-                        type="text"
+                        type="number"
                         className="form-control"
                         aria-label="cpm"
                         id="cpm_text_input"
                         placeholder="120"
+                        value={cpmValue}
+                        onChange={onCpmChange}
+                        min="20"
+                        max="300"
                     />
                 </div>
             </div>
