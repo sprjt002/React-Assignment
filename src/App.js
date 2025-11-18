@@ -28,7 +28,7 @@ export default function StrudelDemo() {
     const hasRun = useRef(false);
 
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm });
+        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm, checkboxStates: checkboxStates });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
@@ -45,11 +45,24 @@ export default function StrudelDemo() {
 
     const [state, setState] = useState("stop");
 
+    const [checkboxStates, setCheckboxStates] = useState({
+        s1: true,
+        d1: true,
+        d2: true
+    });
+
+    const handleCheckboxChange = (checkboxId, isChecked) => {
+        setCheckboxStates(prev => ({
+            ...prev,
+            [checkboxId]: isChecked
+        }));
+    };
+
     useEffect(() => {
         if (state === "play") {
             handlePlay();
         }
-    }, [volume, cpm])
+    }, [volume, cpm, checkboxStates])
 
     const saveJson = () => {
         const projectData = {
@@ -159,7 +172,7 @@ export default function StrudelDemo() {
                             </div>
                             <div className="col-md-4">
                                 <nav>
-                                    <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} volumeChange={volume} onVolumeChange={(e) => setVolume(Number(e.target.value))} cpmValue={cpm} onCpmChange={(e) => setCpm(Number(e.target.value))} />
+                                    <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} volumeChange={volume} onVolumeChange={(e) => setVolume(Number(e.target.value))} cpmValue={cpm} onCpmChange={(e) => setCpm(Number(e.target.value))} checkboxStates={checkboxStates} onCheckboxChange={handleCheckboxChange} />
                                 </nav>
                             </div>
                         </div>

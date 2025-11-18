@@ -1,4 +1,4 @@
-export function Preprocess({ inputText, volume, cpm }) {
+export function Preprocess({ inputText, volume, cpm, checkboxStates }) {
 
 
     let outputText = inputText + "\n//Hello, this is a test";
@@ -7,6 +7,10 @@ export function Preprocess({ inputText, volume, cpm }) {
 
     outputText = outputText.replaceAll("{$VOLUME}", volume);
     outputText = outputText.replaceAll("{$CPM}", cpm); // cpm replacement
+    outputText = outputText.replaceAll("{$S1}", checkboxStates?.s1 ? "1" : "0");
+    outputText = outputText.replaceAll("{$D1}", checkboxStates?.d1 ? "1" : "0");
+    outputText = outputText.replaceAll("{$D2}", checkboxStates?.d2 ? "1" : "0");
+
 
     let regex = /[a-zA-Z0-9_]+:\s*\n[\s\S]+?\r?\n(?=[a-zA-Z0-9_]*[:\/])/gm;
 

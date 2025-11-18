@@ -1,4 +1,4 @@
-function PlayButtons({ onPlay, onStop, volumeChange, onVolumeChange, cpmValue, onCpmChange }) {
+function PlayButtons({ onPlay, onStop, volumeChange, onVolumeChange, cpmValue, onCpmChange, checkboxStates, onCheckboxChange }) {
     return (
         <div className="play-buttons-box">
             <h4 className="text-center">Playback Controls</h4>
@@ -56,15 +56,15 @@ function PlayButtons({ onPlay, onStop, volumeChange, onVolumeChange, cpmValue, o
             <div className="row justify-content-center mt-3">
                 <div className="d-flex justify-content-center align-items-center gap-3">
                     <div className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="s1" />
+                        <input className="form-check-input" type="checkbox" id="s1" checked={checkboxStates.s1} onChange={(e) => onCheckboxChange('s1', e.target.checked)} />
                         <label className="header" htmlFor="s1">s1</label>
                     </div>
                     <div className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="d1" />
+                        <input className="form-check-input" type="checkbox" id="d1" checked={checkboxStates.d1} onChange={(e) => onCheckboxChange('d1', e.target.checked)} />
                         <label className="header" htmlFor="d1">d1</label>
                     </div>
                     <div className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="d2" />
+                        <input className="form-check-input" type="checkbox" id="d2" checked={checkboxStates.d2} onChange={(e) => onCheckboxChange('d2', e.target.checked)} />
                         <label className="header" htmlFor="d2">d2</label>
                     </div>
                 </div>
