@@ -6,12 +6,12 @@ function PlayButtons({ onPlay, onStop, volumeChange, onVolumeChange }) {
             {/* Row 1: Play / Stop */}
             <div className="row justify-content-center">
                 <div className="col-auto">
-                    <button id="play" className="btn btn-primary" onClick={onPlay}>
+                    <button className="btn btn-outline-primary" onClick={onPlay}>
                         Play
                     </button>
                 </div>
                 <div className="col-auto">
-                    <button id="stop" className="btn btn-danger" onClick={onStop}>
+                    <button className="btn btn-outline-danger" onClick={onStop}>
                         Stop
                     </button>
                 </div>

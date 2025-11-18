@@ -146,8 +146,8 @@ export default function StrudelDemo() {
                 <br />
                 <h2 className="header-title" >Strudel Demo</h2>
                 <div className="d-flex justify-content-center gap-3 mt-3">
-                    <button className="btn btn-primary" onClick={saveJson}>Save JSON</button>
-                    <button className="btn btn-primary" onClick={loadJson}>Load JSON</button>
+                    <button className="btn btn-outline-primary" onClick={saveJson}>Save JSON</button>
+                    <button className="btn btn-outline-primary" onClick={loadJson}>Load JSON</button>
                 </div>
                 <main>
 
